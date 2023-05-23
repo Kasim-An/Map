@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Maps Example</title>
+  <link rel="stylesheet" type="text/css" href="bstyle.css">
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="map"></div>
+    <button @click="getCurrentLocation">Get Current Location</button>
+    <div>
+      <input type="text" v-model="searchAddress" placeholder="Enter an address" @keydown.enter="searchAddressOnMap">
+      <button @click="searchAddressOnMap">Search</button>
+    </div>
+    <div>
+      <h2>Search History</h2>
+      <ul>
+        <li v-for="record in searchHistory" :key="record.id">
+          <label>
+            <input type="checkbox" v-model="selectedRecords" :value="record.id">
+            {{ record.address }}
+          </label>
+          <button @click="deleteRecord(record.id)">Delete</button>
+        </li>
+      </ul>
+      <button @click="deleteSelectedRecords">Delete Selected</button>
+      <button @click="deleteAllRecords">Delete All</button>
+    </div>
+    <div class="timezone-info">
+      <h3>Latest Search Timezone: {{ latestSearchTimezone }}</h3>
+      <h3>Latest Search Local Time: {{ latestSearchLocalTime }}</h3>
+    </div>
+  </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvwwdYP6SsRlx_D8eKzy8C1gZKUWVIICE&libraries=places"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
